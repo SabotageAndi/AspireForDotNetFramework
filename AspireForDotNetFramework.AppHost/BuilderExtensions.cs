@@ -31,7 +31,12 @@ namespace AspireForDotNetFramework.AppHost
 
             if (Directory.Exists(currentVsDirectoryPath))
             {
-                return currentVsDirectoryPath;
+                var applicationHostConfigPath = Path.Combine(currentVsDirectoryPath, "AspireForDotNetFramework", "config", "applicationhost.config");
+
+                if (File.Exists(applicationHostConfigPath))
+                {
+                    return currentVsDirectoryPath;
+                }
             }
 
             var parentDirectory = Path.GetDirectoryName(directory);
