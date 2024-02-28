@@ -9,7 +9,7 @@ namespace AspireForDotNetFramework.AppHost
 {
     public static class BuilderExtensions
     {
-        public static void AddAspNetMVC<T>(this IDistributedApplicationBuilder builder, string name) where T : Aspire.Hosting.IProjectMetadata, new()
+        public static IResourceBuilder<ExecutableResource> AddAspNetMVC<T>(this IDistributedApplicationBuilder builder, string name) where T : Aspire.Hosting.IProjectMetadata, new()
         {
             var projectMetadata = new T();
 
@@ -22,7 +22,7 @@ namespace AspireForDotNetFramework.AppHost
 
             var vsDirectory = FindVsDirectory(projectDirectory);
 
-            builder.AddExecutable(name, iisExpressPath, projectDirectory, new[] { $"/config:{Path.Combine(vsDirectory, "AspireForDotNetFramework", "config","applicationhost.config")}", $"/site:{projectName}" });
+            return builder.AddExecutable(name, iisExpressPath, projectDirectory, new[] { $"/config:{Path.Combine(vsDirectory, "AspireForDotNetFramework", "config","applicationhost.config")}", $"/site:{projectName}" });
         }
 
         private static string FindVsDirectory(string directory)
