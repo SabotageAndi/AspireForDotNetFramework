@@ -12,6 +12,8 @@ namespace AspireForAspNETMvc.WebOld
     {
         protected void Application_Start()
         {
+            AspireForDotNetFramework.AspNetMVC5.WaitForDebugger.WaitIfNeeded();
+
             AspireForDotNetFramework.AspNetMVC5.OpenTelemetryIntegration.Enable();
 
             AreaRegistration.RegisterAllAreas();
