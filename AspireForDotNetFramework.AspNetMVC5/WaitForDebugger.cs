@@ -11,13 +11,16 @@ namespace AspireForDotNetFramework.AspNetMVC5
             var waitForDebuggerEnvVariable =
                 Environment.GetEnvironmentVariable("AspireForDotNetFramework_WaitForDebugger");
 
+            var currentProcess = Process.GetCurrentProcess();
+
             if (waitForDebuggerEnvVariable != null)
             {
                 if (waitForDebuggerEnvVariable == "1")
                 {
                     while (true)
                     {
-                        Thread.Sleep(TimeSpan.FromSeconds(10));
+                        Console.WriteLine($"Waiting for Debugger to be attached to process {currentProcess.ProcessName}/{currentProcess.Id}");
+                        Thread.Sleep(TimeSpan.FromSeconds(5));
 
                         if (Debugger.IsAttached)
                         {
