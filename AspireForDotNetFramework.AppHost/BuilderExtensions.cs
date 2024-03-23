@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,20 @@ namespace AspireForDotNetFramework.AppHost
 
             var vsDirectory = FindVsDirectory(projectDirectory);
 
-            return builder.AddExecutable(name, iisExpressPath, projectDirectory, new[] { $"/config:{Path.Combine(vsDirectory, "AspireForDotNetFramework", "config","applicationhost.config")}", $"/site:{projectName}" });
+            var aspnetMVCResource = builder.AddExecutable(name, iisExpressPath, projectDirectory,
+                new[]
+                {
+                    $"/config:{Path.Combine(vsDirectory, "AspireForDotNetFramework", "config", "applicationhost.config")}",
+                    $"/site:{projectName}"
+                });
+
+
+            if (Debugger.IsAttached)
+            {
+                aspnetMVCResource = aspnetMVCResource.WithEnvironment("AspireForDotNetFramework_WaitForDebugger", "1");
+            }
+
+            return aspnetMVCResource;
         }
 
         private static string FindVsDirectory(string directory)
