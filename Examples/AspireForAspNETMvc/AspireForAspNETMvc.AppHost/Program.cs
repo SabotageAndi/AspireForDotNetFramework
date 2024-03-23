@@ -12,7 +12,8 @@ var sqlServer = builder.AddSqlServerContainer("sqlServer").
 
 
 
-var aspnetMVC = builder.AddAspNetMVC<Projects.AspireForAspNETMvc_WebOld>("ASP_NET_MVC_Frontend").WithReference(sqlServer);
+var aspnetMVC = builder.AddAspNetMVC<Projects.AspireForAspNETMvc_WebOld>("ASP_NET_MVC_Frontend")
+    .WithReference(sqlServer);
     
 
 
